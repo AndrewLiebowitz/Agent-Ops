@@ -42,3 +42,9 @@ Run the Test:
 Execute the Test Script:
 python3 vertex-ai-agent/test_agent.py
 If successful, you will see the agent's final, human-readable answer: Black Lotus is an Artifact...
+
+
+
+Requirements for the Cloud Run tool
+functions-framework==3.*
+requests==2.*
