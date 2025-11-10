@@ -1,0 +1,52 @@
+# This is the OpenAPI specification (the "contract") that tells
+# the agent HOW to use the Cloud Run tool.
+
+openapi: 3.0.0
+info:
+  title: MTG Card Lookup Tool
+  # Quoted to prevent YAML syntax errors
+  description: 'Fetches detailed information (cost, type, rules text) for a Magic The Gathering card given its name.'
+  version: v1
+
+servers:
+  # !!! REPLACE THIS with your live Cloud Run URL from Part 1 !!!
+  - url: https://[YOUR_CLOUD_RUN_URL]
+
+paths:
+  /:
+    post:
+      summary: Retrieves detailed properties of an MTG card.
+      description: Use this tool whenever the user asks for the mana cost, text, type, or power/toughness of a specific Magic: The Gathering card.
+      operationId: getMtgCardInfo
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                card_name:
+                  type: string
+                  description: The full, exact name of the Magic The Gathering card (e.g., 'Black Lotus', 'Lightning Bolt').
+      responses:
+        '200':
+          description: Successful response containing the card's structured data.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  name:
+                    type: string
+                  mana_cost:
+                    type: string
+                  type:
+                    type: string
+                  text:
+                    type: string
+                  power:
+                    type: string
+                  toughness:
+                    type: string
+        '404':
+          description: Card not found or external API error.
